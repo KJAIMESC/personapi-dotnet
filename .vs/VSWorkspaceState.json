@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\db-init",
+    "\\personapi-dotnet",
+    "\\personapi-dotnet\\Controllers",
+    "\\personapi-dotnet\\wwwroot"
+  ],
+  "SelectedNode": "\\docker-compose.yml",
+  "PreviewInSolutionExplorer": false
+}

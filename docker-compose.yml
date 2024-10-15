@@ -1,0 +1,32 @@
+services:
+  # Service for the .NET app
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Dockerfile located in the current directory
+    ports:
+      - "5000:80"  # Map port 80 of the container to port 5000 on the host
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=arq_per_db;User=sa;Password=Qwerty!2345;
+    depends_on:
+      - db  # Ensure db service starts before the app
+
+  # Service for Microsoft SQL Server Developer Edition
+  db:
+    build:
+      context: ./db-init  # Build the image using the Dockerfile in the 'db-init' folder
+      dockerfile: Dockerfile  # Ensure that this is the correct path to the Dockerfile
+    environment:
+      - SA_PASSWORD=Qwerty!2345
+      - ACCEPT_EULA=Y
+      - MSSQL_PID=Developer  # Developer edition license key
+    ports:
+      - "1433:1433"  # Expose SQL Server port 1433
+    volumes:
+      - sql_data:/var/opt/mssql  # Volume for SQL Server data persistence
+      - ./db-init:/db-init  # Mount the init scripts folder
+    command: /bin/bash -c "/usr/src/app/wait-for-sqlserver.sh localhost:1433 -- /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Qwerty!2345 -d master -i /tmp/personadb.ddl"
+
+volumes:
+  sql_data:
