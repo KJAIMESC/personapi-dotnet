@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\db-init",
-    "\\personapi-dotnet",
-    "\\personapi-dotnet\\Controllers"
+    ""
   ],
-  "SelectedNode": "\\db-init\\personadb.ddl",
+  "SelectedNode": "\\personapi-dotnet.sln",
   "PreviewInSolutionExplorer": false
 }
