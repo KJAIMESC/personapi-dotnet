@@ -3,9 +3,8 @@
     "",
     "\\db-init",
     "\\personapi-dotnet",
-    "\\personapi-dotnet\\Controllers",
-    "\\personapi-dotnet\\wwwroot"
+    "\\personapi-dotnet\\Controllers"
   ],
-  "SelectedNode": "\\docker-compose.yml",
+  "SelectedNode": "\\db-init\\personadb.ddl",
   "PreviewInSolutionExplorer": false
 }
