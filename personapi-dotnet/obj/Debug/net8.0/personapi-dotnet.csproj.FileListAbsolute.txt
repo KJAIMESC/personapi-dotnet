@@ -271,3 +271,15 @@ C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.pdb
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.genruntimeconfig.cache
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\ref\personapi-dotnet.dll
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.AssemblyInfoInputs.cache
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.AssemblyInfo.cs
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.RazorAssemblyInfo.cache
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.RazorAssemblyInfo.cs
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.sourcelink.json
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.dll
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\refint\personapi-dotnet.dll
+C:\Users\USUARIO\Documents\Taller .NET\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.pdb
