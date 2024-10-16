@@ -17,11 +17,18 @@ RUN apt-get update && \
 # Copy the DDL file into the container
 COPY personadb.ddl /tmp/personadb.ddl
 
-# Create an entrypoint script to execute SQL commands after SQL Server starts
+# Create an entrypoint script to wait for SQL Server and execute the DDL file
 RUN echo '#!/bin/bash\n\
 /opt/mssql/bin/sqlservr &\n\
-sleep 40\n\
+echo "Waiting for SQL Server to start..."\n\
+until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" &> /dev/null\n\
+do\n\
+    echo "Waiting for SQL Server..."\n\
+    sleep 10\n\
+done\n\
+echo "SQL Server is up! Running the DDL file..."\n\
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -i /tmp/personadb.ddl\n\
+echo "The database is now up and running."\n\
 wait' > /tmp/entrypoint.sh
 
 # Make the entrypoint script executable

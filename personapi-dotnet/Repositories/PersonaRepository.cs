@@ -15,12 +15,19 @@ namespace personapi_dotnet.Repositories
 
         public async Task<IEnumerable<Persona>> GetAllAsync()
         {
-            return await _context.Personas.ToListAsync();
+            return await _context.Personas
+                .Include(p => p.Estudios) 
+                .Include(p => p.Telefonos)
+                .ToListAsync();
         }
 
         public async Task<Persona> GetByIdAsync(long cc)
         {
-            var persona = await _context.Personas.FindAsync(cc);
+            var persona = await _context.Personas
+                .Include(p => p.Estudios)
+                .Include(p => p.Telefonos)
+                .FirstOrDefaultAsync(p => p.Cc == cc); 
+
             if (persona == null)
             {
                 throw new KeyNotFoundException($"Persona with Cc {cc} not found.");
@@ -36,9 +43,20 @@ namespace personapi_dotnet.Repositories
 
         public async Task UpdateAsync(Persona persona)
         {
-            _context.Personas.Update(persona);
-            await _context.SaveChangesAsync();
+            var existingPersona = await _context.Personas.FindAsync(persona.Cc);
+
+            if (existingPersona != null)
+            {
+                existingPersona.Nombre = persona.Nombre;
+                existingPersona.Apellido = persona.Apellido;
+                existingPersona.Genero = persona.Genero;
+                existingPersona.Edad = persona.Edad;
+
+                _context.Personas.Update(existingPersona);
+                await _context.SaveChangesAsync();
+            }
         }
+
 
         public async Task DeleteAsync(long cc)
         {

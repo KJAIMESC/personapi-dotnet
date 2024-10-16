@@ -5,10 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile  # Dockerfile located in the current directory
     ports:
-      - "5000:80"  # Map port 80 of the container to port 5000 on the host
+      - "5000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Server=db;Database=arq_per_db;User=sa;Password=StrongP@ssw0rd123;  # Ensure this matches the SA_PASSWORD
+      - ConnectionStrings__DefaultConnection=Server=db,1433;Database=persona_db;User Id=sa;Password=StrongP@ssw0rd123;TrustServerCertificate=true;
     depends_on:
       - db  # Ensure db service starts before the app
     networks:

@@ -41,7 +41,10 @@ namespace personapi_dotnet.Controllers
         public async Task<ActionResult> Update(long cc, [FromBody] Persona persona)
         {
             if (cc != persona.Cc) return BadRequest();
+            var existingPersona = await _personaRepository.GetByIdAsync(cc);
+            if (existingPersona == null) return NotFound();
             await _personaRepository.UpdateAsync(persona);
+
             return NoContent();
         }
 
