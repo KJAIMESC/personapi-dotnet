@@ -266,7 +266,6 @@ C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.pdb
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\personapi-dotnet.genruntimeconfig.cache
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\obj\Debug\net8.0\ref\personapi-dotnet.dll
-C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\bin\Debug\net8.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\bin\Debug\net8.0\Microsoft.Build.dll
 C:\Users\User\Documents\GitHub\personapi-dotnet\personapi-dotnet\bin\Debug\net8.0\Microsoft.Build.Framework.dll

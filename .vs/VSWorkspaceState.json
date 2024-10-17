@@ -4,10 +4,13 @@
     "\\db-init",
     "\\personapi-dotnet",
     "\\personapi-dotnet\\Controllers",
+    "\\personapi-dotnet\\Controllers\\Api",
     "\\personapi-dotnet\\Models",
     "\\personapi-dotnet\\Models\\Entities",
-    "\\personapi-dotnet\\Repositories"
+    "\\personapi-dotnet\\Repositories",
+    "\\personapi-dotnet\\Views",
+    "\\personapi-dotnet\\Views\\Estudios"
   ],
-  "SelectedNode": "\\docker-compose.yml",
+  "SelectedNode": "\\personapi-dotnet\\Repositories\\EstudioRepository.cs",
   "PreviewInSolutionExplorer": false
 }

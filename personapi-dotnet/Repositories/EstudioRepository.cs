@@ -30,15 +30,50 @@ namespace personapi_dotnet.Repositories
 
         public async Task AddAsync(Estudio estudio)
         {
+            var persona = await _context.Personas.FindAsync(estudio.CcPer);
+            var profesion = await _context.Profesions.FindAsync(estudio.IdProf);
+
+            if (persona == null)
+            {
+                throw new KeyNotFoundException($"Persona with Cc {estudio.CcPer} not found.");
+            }
+
+            if (profesion == null)
+            {
+                throw new KeyNotFoundException($"Profesion with Id {estudio.IdProf} not found.");
+            }
+
+            // Assigning navigation properties
+            estudio.CcPerNavigation = persona;
+            estudio.IdProfNavigation = profesion;
+
             await _context.Estudios.AddAsync(estudio);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Estudio estudio)
         {
+            var persona = await _context.Personas.FindAsync(estudio.CcPer);
+            var profesion = await _context.Profesions.FindAsync(estudio.IdProf);
+
+            if (persona == null)
+            {
+                throw new KeyNotFoundException($"Persona with Cc {estudio.CcPer} not found.");
+            }
+
+            if (profesion == null)
+            {
+                throw new KeyNotFoundException($"Profesion with Id {estudio.IdProf} not found.");
+            }
+
+            // Assigning navigation properties
+            estudio.CcPerNavigation = persona;
+            estudio.IdProfNavigation = profesion;
+
             _context.Estudios.Update(estudio);
             await _context.SaveChangesAsync();
         }
+
 
         public async Task DeleteAsync(int idProf, long ccPer)
         {

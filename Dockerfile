@@ -9,6 +9,11 @@ WORKDIR /src
 
 # Copy the .csproj file and restore any dependencies
 COPY ["personapi-dotnet/personapi-dotnet.csproj", "./"]
+
+# Add the Swashbuckle.AspNetCore package (for Swagger support)
+RUN dotnet add package Swashbuckle.AspNetCore --version 6.4.0
+
+# Restore the project
 RUN dotnet restore "./personapi-dotnet.csproj"
 
 # Copy the remaining source code and build the application

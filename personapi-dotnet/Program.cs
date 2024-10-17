@@ -1,5 +1,4 @@
-﻿using personapi_dotnet.Controllers;
-using personapi_dotnet.Interfaces;
+﻿using personapi_dotnet.Interfaces;
 using personapi_dotnet.Repositories;
 using personapi_dotnet.Models.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddControllers();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Register DbContext with connection string from configuration
 builder.Services.AddDbContext<PersonaDbContext>(options =>
@@ -43,6 +47,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseRouting();
 

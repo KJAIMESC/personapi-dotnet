@@ -24,7 +24,7 @@ echo "Waiting for SQL Server to start..."\n\
 until /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" &> /dev/null\n\
 do\n\
     echo "Waiting for SQL Server..."\n\
-    sleep 10\n\
+    sleep 5\n\
 done\n\
 echo "SQL Server is up! Running the DDL file..."\n\
 /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -i /tmp/personadb.ddl\n\
