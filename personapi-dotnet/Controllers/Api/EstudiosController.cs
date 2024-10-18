@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using personapi_dotnet.Dto;
 using personapi_dotnet.Models.Entities;
 
 namespace personapi_dotnet.Controllers.Api
@@ -25,7 +26,7 @@ namespace personapi_dotnet.Controllers.Api
         }
 
         // GET: api/Estudios/{idProf}/{ccPer}
-        [HttpGet("{idProf}/{ccPer}")]
+        [HttpGet("{idProf:int}/{ccPer:long}")]
         public async Task<ActionResult<Estudio>> GetEstudio(int idProf, long ccPer)
         {
             var estudio = await _context.Estudios.FindAsync(idProf, ccPer);
@@ -39,15 +40,20 @@ namespace personapi_dotnet.Controllers.Api
         }
 
         // PUT: api/Estudios/{idProf}/{ccPer}
-        [HttpPut("{idProf}/{ccPer}")]
-        public async Task<IActionResult> PutEstudio(int idProf, long ccPer, Estudio estudio)
+        [HttpPut("{idProf:int}/{ccPer:long}")]
+        public async Task<IActionResult> PutEstudio(int idProf, long ccPer, EstudioCreateUpdateDto estudioDto)
         {
-            if (idProf != estudio.IdProf || ccPer != estudio.CcPer)
+            if (idProf != estudioDto.IdProf || ccPer != estudioDto.CcPer)
             {
-                return BadRequest();
+                return BadRequest("The ID and CC provided in the URL do not match the DTO.");
             }
 
-            // Check if related entities exist
+            var existingEstudio = await _context.Estudios.FindAsync(idProf, ccPer);
+            if (existingEstudio == null)
+            {
+                return NotFound("The Estudio was not found.");
+            }
+
             var persona = await _context.Personas.FindAsync(ccPer);
             var profesion = await _context.Profesions.FindAsync(idProf);
 
@@ -56,11 +62,12 @@ namespace personapi_dotnet.Controllers.Api
                 return BadRequest("Related Persona or Profesion not found.");
             }
 
-            // Set navigation properties
-            estudio.CcPerNavigation = persona;
-            estudio.IdProfNavigation = profesion;
+            existingEstudio.Fecha = estudioDto.Fecha;
+            existingEstudio.Univer = estudioDto.Univer;
+            existingEstudio.CcPerNavigation = persona;
+            existingEstudio.IdProfNavigation = profesion;
 
-            _context.Entry(estudio).State = EntityState.Modified;
+            _context.Entry(existingEstudio).State = EntityState.Modified;
 
             try
             {
@@ -70,7 +77,7 @@ namespace personapi_dotnet.Controllers.Api
             {
                 if (!EstudioExists(idProf, ccPer))
                 {
-                    return NotFound();
+                    return NotFound("The Estudio was not found during save.");
                 }
                 else
                 {
@@ -83,30 +90,42 @@ namespace personapi_dotnet.Controllers.Api
 
         // POST: api/Estudios
         [HttpPost]
-        public async Task<ActionResult<Estudio>> PostEstudio(Estudio estudio)
+        public async Task<ActionResult<Estudio>> PostEstudio(EstudioCreateUpdateDto estudioDto)
         {
-            // Fetch the related entities based on the provided identifiers
-            var persona = await _context.Personas.FindAsync(estudio.CcPer);
-            var profesion = await _context.Profesions.FindAsync(estudio.IdProf);
+            var persona = await _context.Personas.FindAsync(estudioDto.CcPer);
+            var profesion = await _context.Profesions.FindAsync(estudioDto.IdProf);
 
             if (persona == null || profesion == null)
             {
                 return BadRequest("Invalid CcPer or IdProf provided.");
             }
 
-            // Set the navigation properties
-            estudio.CcPerNavigation = persona;
-            estudio.IdProfNavigation = profesion;
+            var existingEstudio = await _context.Estudios
+                .FirstOrDefaultAsync(e => e.IdProf == estudioDto.IdProf && e.CcPer == estudioDto.CcPer);
+
+            if (existingEstudio != null)
+            {
+                return Conflict("An Estudio with the provided IdProf and CcPer already exists.");
+            }
+
+            var estudio = new Estudio
+            {
+                IdProf = estudioDto.IdProf,
+                CcPer = estudioDto.CcPer,
+                Fecha = estudioDto.Fecha,
+                Univer = estudioDto.Univer,
+                CcPerNavigation = persona,
+                IdProfNavigation = profesion
+            };
 
             _context.Estudios.Add(estudio);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEstudio", new { id = estudio.IdProf }, estudio);
+            return CreatedAtAction("GetEstudio", new { idProf = estudio.IdProf, ccPer = estudio.CcPer }, estudio);
         }
 
-
         // DELETE: api/Estudios/{idProf}/{ccPer}
-        [HttpDelete("{idProf}/{ccPer}")]
+        [HttpDelete("{idProf:int}/{ccPer:long}")]
         public async Task<IActionResult> DeleteEstudio(int idProf, long ccPer)
         {
             var estudio = await _context.Estudios.FindAsync(idProf, ccPer);

@@ -28,26 +28,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fecha)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Univer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CcPerNavigation.Cc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdProfNavigation.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Univer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CcPerNavigation.Cc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdProfNavigation.Id)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { idProf = item.IdProf, ccPer = item.CcPer }) |
+                    @Html.ActionLink("Details", "Details", new { idProf = item.IdProf, ccPer = item.CcPer }) |
+                    @Html.ActionLink("Delete", "Delete", new { idProf = item.IdProf, ccPer = item.CcPer })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

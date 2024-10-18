@@ -6,13 +6,20 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(); // For MVC Controllers (like views)
+builder.Services.AddControllers(); // For API Controllers
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Configure Swagger to only document API controllers
+builder.Services.AddSwaggerGen(c =>
+{
+    c.DocInclusionPredicate((_, apiDesc) =>
+    {
+        // Only include API controllers in Swagger documentation (those with the [ApiController] attribute)
+        return apiDesc.ActionDescriptor.EndpointMetadata
+            .Any(em => em is Microsoft.AspNetCore.Mvc.ApiControllerAttribute);
+    });
+});
 
 // Register DbContext with connection string from configuration
 builder.Services.AddDbContext<PersonaDbContext>(options =>
@@ -48,8 +55,11 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseRouting();
 
@@ -73,6 +83,10 @@ app.Use(async (context, next) =>
     }
 });
 
+// Map API controllers (with [ApiController] attributes)
+app.MapControllers(); // This grabs API controllers
+
+// Map default MVC route for non-API controllers
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

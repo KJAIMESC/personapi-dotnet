@@ -11,6 +11,6 @@
     "\\personapi-dotnet\\Views",
     "\\personapi-dotnet\\Views\\Estudios"
   ],
-  "SelectedNode": "\\personapi-dotnet\\Repositories\\EstudioRepository.cs",
+  "SelectedNode": "\\db-init\\personadb.ddl",
   "PreviewInSolutionExplorer": false
 }
